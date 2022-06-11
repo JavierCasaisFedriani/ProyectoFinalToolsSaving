@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TabBarController" customModule="ProyectoFinal" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Rf-cz-dJd">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKc-Kp-iaN">
+                            <rect key="frame" x="0.0" y="769" width="414" height="49"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <items>
+                                <tabBarItem systemItem="favorites" id="CYC-KO-TTL"/>
+                                <tabBarItem systemItem="more" id="Vaz-1y-ivx"/>
+                            </items>
+                        </tabBar>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPG-9f-s7O">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="769"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="XPG-9f-s7O" firstAttribute="top" secondItem="4Rf-cz-dJd" secondAttribute="top" id="1Mh-gY-xqU"/>
+                        <constraint firstItem="gKc-Kp-iaN" firstAttribute="top" secondItem="XPG-9f-s7O" secondAttribute="bottom" id="Grj-LK-FqQ"/>
+                        <constraint firstAttribute="bottom" secondItem="gKc-Kp-iaN" secondAttribute="bottom" id="aIy-RT-g4h"/>
+                        <constraint firstAttribute="trailing" secondItem="XPG-9f-s7O" secondAttribute="trailing" id="c4z-ND-e89"/>
+                        <constraint firstAttribute="trailing" secondItem="gKc-Kp-iaN" secondAttribute="trailing" id="fZ4-wF-COh"/>
+                        <constraint firstItem="gKc-Kp-iaN" firstAttribute="leading" secondItem="4Rf-cz-dJd" secondAttribute="leading" id="r1k-Y7-jYC"/>
+                        <constraint firstItem="XPG-9f-s7O" firstAttribute="leading" secondItem="4Rf-cz-dJd" secondAttribute="leading" id="tIM-Mv-LO5"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="4Rf-cz-dJd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Ux2-Gq-GSX"/>
+                <constraint firstItem="4Rf-cz-dJd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="XcL-zv-WBc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4Rf-cz-dJd" secondAttribute="trailing" id="cBC-tx-b9p"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4Rf-cz-dJd" secondAttribute="bottom" id="fXM-gQ-Xcg"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="68"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

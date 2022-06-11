@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  ProyectoFinal
+
+  Created by Francisco Javier Casais on 19/5/22.
+  
+*/
+
+yes = "Yes";
+no = "No";
+
+login = "Login";
+register = "Register";
+userEmail = "User or Email";
+password = "Password";
+
+cancel = "Cancel";
+send = "Send";
+warning = "Warning";
+delete = "Delete";

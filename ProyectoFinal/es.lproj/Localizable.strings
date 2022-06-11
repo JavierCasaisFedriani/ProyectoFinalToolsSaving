@@ -1,0 +1,51 @@
+/* 
+  Localizable.strings
+  ProyectoFinal
+
+  Created by Francisco Javier Casais on 19/5/22.
+*/
+
+yes = "Si";
+no = "No";
+
+//Placeholder
+login = "Iniciar sesion";
+register = "Registarse";
+userEmail = "Usuario o Correo";
+user = "Usuario";
+email = "Correo";
+password = "Contraseña";
+repeatPassword = "Repetir contraseña";
+addNameCategorya = "Nombre de la Categoria";
+addPercentageCategory = "Porcentaje de la Categoria";
+addSalary = "Añadir salario";
+salary = "Salario";
+
+
+accept = "Aceptar";
+cancel = "Cancelar";
+send = "Enviar";
+warning = "Aviso";
+delete = "Borrar";
+add = "Añadir";
+edit = "Editar";
+
+
+//message
+haveAccount = "Ya tengo cuenta";
+createCategory = "Crear categoria";
+
+//Menus tab bar
+saving = "Ahorro";
+category = "Categoria";
+
+//Mensajes de las alertas
+usedMoney = "Dinero usado";
+msgUsedMoney = "Especifica cuento dinero has utilizado de esta categoria";
+msgAddSalary = "Introduce cuanto has cobrado";
+
+deleteCategory = "Eliminar categoria";
+msgDeleteCategory = "Estas seguro que quieres borrar la categoria";
+editCategory = "Editar categoria";
+noFunctionality = "Esta pantalla de momento no tiene funcionalidad. \n Disculpen las molestias.";
+
