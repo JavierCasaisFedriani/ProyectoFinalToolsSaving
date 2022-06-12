@@ -47,8 +47,10 @@ class CategoriyTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         //btnEdit
         btnEdit.loadBtnImageSystem(nameImage: "pencil")
+        btnEdit.isHidden = false
         //btnDelete
         btnDelete.loadBtnImageSystem(nameImage: "trash.fill")
+        btnDelete.isHidden = false
 //        btnDelete.isEnabled = false
         //stackLabel
         stackLabel.axis = .horizontal
@@ -61,6 +63,12 @@ class CategoriyTableViewCell: UITableViewCell {
         lbNameCategory.loadStyleText("\(category.categories[indexPath].name): ")
         //lbPercentageCategory
         lbPercentageCategory.loadStyleDataText("\(category.categories[indexPath].percentage)%")
+        
+        //hide buttons
+        if indexPath == 0 {
+            btnDelete.isHidden = true
+            btnEdit.isHidden = true
+        }
     }
     
     func setDataCategory(_ indexPath: Int) {

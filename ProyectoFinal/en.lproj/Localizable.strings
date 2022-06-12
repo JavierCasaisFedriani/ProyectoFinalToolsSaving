@@ -1,20 +1,45 @@
-/* 
-  Localizable.strings
-  ProyectoFinal
-
-  Created by Francisco Javier Casais on 19/5/22.
-  
-*/
-
 yes = "Yes";
 no = "No";
 
+//Position marker
 login = "Login";
 register = "Register";
-userEmail = "User or Email";
-password = "Password";
 
+userEmail = "Username or email";
+user = "User";
+email = "Email";
+
+password = "Password";
+repeatPassword = "Repeat password";
+addNameCategory = "Name of the Category";
+
+addPercentageCategory = "Percentage of Category";
+addSalary = "Add Salary";
+salary = "Salary";
+
+
+accept = "Accept";
 cancel = "Cancel";
 send = "Send";
 warning = "Warning";
-delete = "Delete";
+delete = "delete";
+add = "Add";
+edit = "Edit";
+
+//message
+haveAccount = "I already have an account";
+createCategory = "Create Category";
+
+// Menu tab bar
+saving = "Saving";
+category = "Category";
+
+//Alert messages
+usedMoney = "Used Money";
+msgUsedMoney = "Specify how much money you have used from this category";
+msgAddSalary = "Enter how much you have been paid";
+
+deleteCategory = "Delete Category";
+msgDeleteCategory = "Are you sure you want to delete the category";
+editCategory = "Edit Category";
+noFunctionality = "This screen currently has no functionality. \n Sorry for the inconvenience.";

@@ -19,9 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowsScene
         
-        let view = LoginViewController() as UIViewController
+//        let view = LoginViewController() as UIViewController
 //        let view = CategoryViewController() as UIViewController
-//        let view = TabBarController() as UIViewController
+        let view = TabBarController() as UIViewController
 //        let view = SavingsViewController() as UIViewController
         let navigationController = UINavigationController(rootViewController: view)
  

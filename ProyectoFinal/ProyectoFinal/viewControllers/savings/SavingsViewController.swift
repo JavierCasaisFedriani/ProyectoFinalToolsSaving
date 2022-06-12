@@ -24,6 +24,12 @@ class SavingsViewController: UIViewController {
         loadStyle()
     }
     
+    //Recarga la tabla al ir a la ventana
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableSaving.reloadData()
+    }
+    
     //MARK: - Function
     func loadNaigationBar() {
         guard let barNavigation = navigationController?.navigationBar else { return }
@@ -101,13 +107,14 @@ class SavingsViewController: UIViewController {
             //save money by percentage
             guard let salary = Int(salary) else { return }
             
-            for number in 0..<self.category.categories.count {
-                let valueMoney = salary * (self.category.categories[number].percentage) / 100
-                self.category.categories[number].money += valueMoney
-                
-                self.tableSaving.reloadData()
+            if salary > 0 {
+                for number in 0..<self.category.categories.count {
+                    let valueMoney = salary * (self.category.categories[number].percentage) / 100
+                    self.category.categories[number].money += valueMoney
+                    
+                    self.tableSaving.reloadData()
+                }
             }
-        
         })
         
         //Add action to alert

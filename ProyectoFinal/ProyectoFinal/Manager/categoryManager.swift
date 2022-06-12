@@ -10,9 +10,14 @@ import Foundation
 class CategoryManager {
     static let shared = CategoryManager()
     
+//    var categories: [CategoryModel] = [
+//        CategoryModel(name: "Coche", percentage: 50, money: 0),
+//        CategoryModel(name: "Casa", percentage: 25, money: 0),
+//        CategoryModel(name: "Vital", percentage: 25, money: 0)
+//    ]
+    
     var categories: [CategoryModel] = [
-        CategoryModel(name: "Coche", percentage: 50, money: 0),
-        CategoryModel(name: "Casa", percentage: 25, money: 0),
-        CategoryModel(name: "Vital", percentage: 25, money: 0)
+        CategoryModel(name: "Ahorro", percentage: 100, money: 0)
     ]
+    
 }

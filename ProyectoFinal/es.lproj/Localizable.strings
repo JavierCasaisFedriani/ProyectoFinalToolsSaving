@@ -3,6 +3,7 @@
   ProyectoFinal
 
   Created by Francisco Javier Casais on 19/5/22.
+ 
 */
 
 yes = "Si";
@@ -21,7 +22,6 @@ addPercentageCategory = "Porcentaje de la Categoria";
 addSalary = "Añadir salario";
 salary = "Salario";
 
-
 accept = "Aceptar";
 cancel = "Cancelar";
 send = "Enviar";
@@ -29,7 +29,6 @@ warning = "Aviso";
 delete = "Borrar";
 add = "Añadir";
 edit = "Editar";
-
 
 //message
 haveAccount = "Ya tengo cuenta";
@@ -48,4 +47,11 @@ deleteCategory = "Eliminar categoria";
 msgDeleteCategory = "Estas seguro que quieres borrar la categoria";
 editCategory = "Editar categoria";
 noFunctionality = "Esta pantalla de momento no tiene funcionalidad. \n Disculpen las molestias.";
+
+//Mensajes de error
+
+maxPercentaje = "El porcentaje supera el 100%";
+repeatedName = "El nombre ya está en uso";
+emptyField = "Hay algún campo está vacio";
+valueInvalid = "Valor introducido no es valido";
 

@@ -39,12 +39,6 @@ class CategoryViewController: UIViewController {
         barNavigation.topItem?.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addCategory))
         barNavigation.topItem?.rightBarButtonItem?.tintColor = .white
         
-        //Text show percentage total
-        barNavigation.topItem?.leftBarButtonItem = UIBarButtonItem(title: "\(String(describing: Function.totalPercentage()))%", style: .done, target: self, action: nil)
-        barNavigation.topItem?.leftBarButtonItem?.isEnabled = false
-        barNavigation.topItem?.leftBarButtonItem?.customView?.alpha = 0.5
-        barNavigation.topItem?.leftBarButtonItem?.tintColor = .white
-        
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navBarAppearance.backgroundColor = .DarkBlueGray
@@ -100,7 +94,8 @@ class CategoryViewController: UIViewController {
                 return
             }
 
-            if Function.validityName(name: name) == true && Function.percentageAllowed() >= percentage {
+            if Function.validityName(name: name) == true && self.category.categories[0].percentage >= percentage {
+                self.category.categories[0].percentage -= percentage
                 self.category.categories.append(CategoryModel(name: name, percentage: percentage, money: 0))
                 self.tableCategory.reloadData()
             }
@@ -174,11 +169,20 @@ extension CategoryViewController: CategoriyTableViewCellDelegate {
             print("Categoria \(category)")
             
             #warning("Modificar los datos del array segun lo introudcido en los textFields")
-            if (name == category.categories[indexPath].name || Function.validityName(name: name) == true) && Function.percentageAllowed(percentage: category.categories[indexPath].percentage) >= percentage {
+            
+            let percentageSave = category.categories[0].percentage
+            category.categories[0].percentage += category.categories[indexPath].percentage
+
+            
+            if (name == category.categories[indexPath].name || Function.validityName(name: name) == true) && category.categories[0].percentage >= percentage {
+                
+                category.categories[0].percentage -= percentage
                 category.categories[indexPath].name = name
                 category.categories[indexPath].percentage = percentage
 
                 self.tableCategory.reloadData()
+            }else {
+                category.categories[0].percentage = percentageSave
             }
         })
         
@@ -208,8 +212,8 @@ extension CategoryViewController: CategoriyTableViewCellDelegate {
             (alert: UIAlertAction) -> Void in
             
             #warning("Borrar la categoria")
+            category.categories[0].percentage += category.categories[indexPath].percentage
             category.categories.remove(at: indexPath)
-            
             self.tableCategory.reloadData()
         })
         

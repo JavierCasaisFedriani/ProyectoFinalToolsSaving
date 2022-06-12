@@ -26,4 +26,12 @@ extension UILabel {
         self.text = text
         self.textColor = .BubbleGum
     }
+    
+    //Ocurtar y mostrar texto de error
+    func loadStyleErrorMsg(_ text: String) {
+        self.isHidden = false
+        self.text = NSLocalizedString("\(text)", comment: "")
+        sleep(5)
+        self.isHidden = true
+    }
 }
