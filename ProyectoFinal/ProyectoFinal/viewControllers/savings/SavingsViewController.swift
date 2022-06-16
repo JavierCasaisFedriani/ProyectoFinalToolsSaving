@@ -14,11 +14,12 @@ class SavingsViewController: UIViewController {
     @IBOutlet var viewMain: UIView!
     
     //MARK: - Variable
-    var category = CategoryManager.shared
+    var categories: [CategoryModel] = []
     
     //MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        categories = readCategories()
         tableDelegate()
         loadNaigationBar()
         loadStyle()
@@ -108,10 +109,11 @@ class SavingsViewController: UIViewController {
             guard let salary = Int(salary) else { return }
             
             if salary > 0 {
-                for number in 0..<self.category.categories.count {
-                    let valueMoney = salary * (self.category.categories[number].percentage) / 100
-                    self.category.categories[number].money += valueMoney
+                for number in 0..<self.categories.count {
+                    let valueMoney = salary * (self.categories[number].percentage) / 100
                     
+                    self.categories[number].money += valueMoney
+                    self.saveCategories()
                     self.tableSaving.reloadData()
                 }
             }
@@ -124,18 +126,52 @@ class SavingsViewController: UIViewController {
         //show the alert
         present(alert, animated: true)
     }
+    
+    private func saveCategories() {
+        // Añado la categoría al user defaults
+        do {
+            // Create JSON Encoder
+            let encoder = JSONEncoder()
+            
+            // Encode Note
+            let data = try encoder.encode(self.categories)
+            
+            // Write/Set Data
+            UserDefaults.standard.set(data, forKey: "categories")
+            
+        } catch {
+            print("Unable to Encode Categories (\(error))")
+        }
+    }
+    
+    private func readCategories() -> [CategoryModel] {
+        if let data = UserDefaults.standard.data(forKey: "categories") {
+            do {
+                // Create JSON Decoder
+                let decoder = JSONDecoder()
+                
+                // Decode Note
+                let categories = try decoder.decode([CategoryModel].self, from: data)
+                
+                return categories
+            } catch {
+                print("Unable to Decode Categories (\(error))")
+            }
+        }
+        return []
+    }
 }
 
 //MARK: - Extencion
 extension SavingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return category.categories.count
+        return self.categories.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SavingTableViewCell", for: indexPath) as? SavingTableViewCell else { return UITableViewCell() }
         
-        cell.setDataCategory(indexPath.row)
+        cell.loadCell(categorie: self.categories[indexPath.item], indexPath: indexPath.item)
         cell.delegate = self
         
         return cell
@@ -179,7 +215,8 @@ extension SavingsViewController: SavingTableViewCellDelegate {
             }
 
             #warning("Aqui restamos el dinero que introduduzcamo a lo que llevemos ahorrado")
-            category.categories[index].money -= money
+            self.categories[index].money -= money
+            self.saveCategories()
             self.tableSaving.reloadData()
         })
         

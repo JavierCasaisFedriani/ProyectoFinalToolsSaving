@@ -25,6 +25,7 @@ class SavingTableViewCell: UITableViewCell {
     //MARK: - lifeCycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        loadStyle()
     }
     
     //MARK: - Action
@@ -43,24 +44,22 @@ class SavingTableViewCell: UITableViewCell {
         
         //btnSubtract
         btnSubtract.loadBtnImageSystem(nameImage: "minus")
-        
-        
 
         //lbName
         lbName.loadStyleText("\(category.categories[index].name):")
-        //lbMoney
-        if category.categories[index].money < 0 {
-            lbMoney.text = String("\(category.categories[index].money)€")
+    }
+    
+    func loadCell(categorie: CategoryModel, indexPath: Int) {
+        self.lbName.loadStyleText(categorie.name)
+        self.lbMoney.loadStyleText(String(categorie.money))
+        self.index = indexPath
+        
+        if categorie.money < 0 {
             lbMoney.textColor = .redError
-        }else {
-            lbMoney.loadStyleDataText("\(category.categories[index].money)€")
         }
     }
     
-    func setDataCategory(_ index: Int){
-        self.index = index
-        loadStyle()
-    }
+
 }
 //MARK: - Protocol
 protocol SavingTableViewCellDelegate: AnyObject {

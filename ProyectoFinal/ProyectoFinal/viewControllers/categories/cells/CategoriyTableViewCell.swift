@@ -30,6 +30,7 @@ class CategoriyTableViewCell: UITableViewCell {
     //MARK: - lifeCycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        loadStyle()
     }
     
     //MARK: - Action
@@ -51,29 +52,27 @@ class CategoriyTableViewCell: UITableViewCell {
         //btnDelete
         btnDelete.loadBtnImageSystem(nameImage: "trash.fill")
         btnDelete.isHidden = false
-//        btnDelete.isEnabled = false
         //stackLabel
         stackLabel.axis = .horizontal
         stackLabel.spacing = 10
         //stackButtons
         stackButtons.axis = .horizontal
         stackButtons.spacing = 10
-
-        //lbNameCategory
-        lbNameCategory.loadStyleText("\(category.categories[indexPath].name): ")
-        //lbPercentageCategory
-        lbPercentageCategory.loadStyleDataText("\(category.categories[indexPath].percentage)%")
-        
-        //hide buttons
-        if indexPath == 0 {
-            btnDelete.isHidden = true
-            btnEdit.isHidden = true
-        }
     }
     
-    func setDataCategory(_ indexPath: Int) {
+    func loadCell(categorie: CategoryModel, indexPath: Int) {
+        self.lbNameCategory.loadStyleText(categorie.name)
+        self.lbPercentageCategory.loadStyleDataText(String(categorie.percentage))
         self.indexPath = indexPath
-        loadStyle()
+        self.btnDelete.isEnabled = false
+        
+        if self.indexPath == 0 {
+            btnDelete.isHidden = true
+            btnEdit.isHidden = true
+        } else {
+            btnDelete.isHidden = false
+            btnEdit.isHidden = false
+        }
     }
 }
 

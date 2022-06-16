@@ -14,11 +14,12 @@ class CategoryViewController: UIViewController {
     @IBOutlet weak var tableCategory: UITableView!
     
     //MARK: - Variable
-    var category = CategoryManager.shared
+    var categories: [CategoryModel] = []
     
     //MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        categories = readCategories()
         tableDelegate()
         loadNaigationBar()
         loadStyle()
@@ -42,7 +43,7 @@ class CategoryViewController: UIViewController {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         navBarAppearance.backgroundColor = .DarkBlueGray
-
+        
         barNavigation.standardAppearance = navBarAppearance
         barNavigation.scrollEdgeAppearance = navBarAppearance
     }
@@ -85,18 +86,20 @@ class CategoryViewController: UIViewController {
             #warning("Añadir categoria")
             
             guard let fields = alert.textFields, fields.count == 2 else { return }
-
+            
             let nameField = fields[0]
             let percentageField = fields[1]
-
+            
             guard let name = nameField.text, !name.isEmpty, let percentage = percentageField.text, !percentage.isEmpty, let percentage = Int(percentage) else {
                 print("Tienes espacios en blanco")
                 return
             }
-
-            if Function.validityName(name: name) == true && self.category.categories[0].percentage >= percentage {
-                self.category.categories[0].percentage -= percentage
-                self.category.categories.append(CategoryModel(name: name, percentage: percentage, money: 0))
+            
+            if Function.validityName(name: name) == true && self.categories[0].percentage >= percentage {
+                self.categories[0].percentage -= percentage
+                let newCategorie = CategoryModel(name: name, percentage: percentage, money: 0)
+                self.categories.append(newCategorie)
+                self.saveCategories()
                 self.tableCategory.reloadData()
             }
         })
@@ -108,19 +111,54 @@ class CategoryViewController: UIViewController {
         //show the alert
         present(alert, animated: true)
     }
+    
+    private func saveCategories() {
+        // Añado la categoría al user defaults
+        do {
+            // Create JSON Encoder
+            let encoder = JSONEncoder()
+            
+            // Encode Note
+            let data = try encoder.encode(self.categories)
+            
+            // Write/Set Data
+            UserDefaults.standard.set(data, forKey: "categories")
+            
+        } catch {
+            print("Unable to Encode Categories (\(error))")
+        }
+    }
+    
+    private func readCategories() -> [CategoryModel] {
+        if let data = UserDefaults.standard.data(forKey: "categories") {
+            do {
+                // Create JSON Decoder
+                let decoder = JSONDecoder()
+                
+                // Decode Note
+                let categories = try decoder.decode([CategoryModel].self, from: data)
+                
+                return categories
+            } catch {
+                print("Unable to Decode Categories (\(error))")
+            }
+        }
+        return []
+    }
 }
 
-//MARK: - Extencion
+//MARK: - Extension
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CategoryManager.shared.categories.count
+        return self.categories.count
         
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoriyTableViewCell", for: indexPath) as? CategoriyTableViewCell else { return UITableViewCell() }
         
-        cell.setDataCategory(indexPath.row)
+        // cell.setDataCategory(indexPath.row)
+        cell.loadCell(categorie: self.categories[indexPath.item], indexPath: indexPath.item)
         cell.delegate = self
         
         return cell
@@ -128,7 +166,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CategoryViewController: CategoriyTableViewCellDelegate {
-
+    
     func didTabBtnEdit(_ indexPath: Int) {
         
         //MARK: Variables
@@ -140,11 +178,11 @@ extension CategoryViewController: CategoriyTableViewCellDelegate {
         //add textfield to alert
         alert.addTextField { txfNameCategory in
             txfNameCategory.placeholder = NSLocalizedString("addNameCategorya", comment: "")
-            txfNameCategory.text = "\(category.categories[indexPath].name)"
+            txfNameCategory.text = "\(self.categories[indexPath].name)"
         }
         
         alert.addTextField { txfPercentageCategory in
-            txfPercentageCategory.text = "\(category.categories[indexPath].percentage)"
+            txfPercentageCategory.text = "\(self.categories[indexPath].percentage)"
             txfPercentageCategory.keyboardType = .numberPad
             txfPercentageCategory.placeholder = NSLocalizedString("addPercentageCategory", comment: "")
         }
@@ -170,20 +208,21 @@ extension CategoryViewController: CategoriyTableViewCellDelegate {
             
             #warning("Modificar los datos del array segun lo introudcido en los textFields")
             
-            let percentageSave = category.categories[0].percentage
-            category.categories[0].percentage += category.categories[indexPath].percentage
-
+            let percentageSave = self.categories[0].percentage
+            self.categories[0].percentage += self.categories[indexPath].percentage
             
-            if (name == category.categories[indexPath].name || Function.validityName(name: name) == true) && category.categories[0].percentage >= percentage {
+            
+            if (name == self.categories[indexPath].name || Function.validityName(name: name) == true) && self.categories[0].percentage >= percentage {
                 
-                category.categories[0].percentage -= percentage
-                category.categories[indexPath].name = name
-                category.categories[indexPath].percentage = percentage
-
-                self.tableCategory.reloadData()
-            }else {
-                category.categories[0].percentage = percentageSave
+                self.categories[0].percentage -= percentage
+                self.categories[indexPath].name = name
+                self.categories[indexPath].percentage = percentage
+                
+                self.saveCategories()
+            } else {
+                self.categories[0].percentage = percentageSave
             }
+            self.tableCategory.reloadData()
         })
         
         //Add action to alert
@@ -193,12 +232,9 @@ extension CategoryViewController: CategoriyTableViewCellDelegate {
         //show the alert
         present(alert, animated: true)
     }
-
+    
     
     func didTabBtnDelete(_ indexPath: Int) {
-        //MARK: Variable
-        let category = CategoryManager.shared
-        
         //MARK: Alertº
         let alert = UIAlertController(title: NSLocalizedString("deleteCategory", comment: ""), message: NSLocalizedString("msgDeleteCategory", comment: ""), preferredStyle: .alert)
         
@@ -212,8 +248,9 @@ extension CategoryViewController: CategoriyTableViewCellDelegate {
             (alert: UIAlertAction) -> Void in
             
             #warning("Borrar la categoria")
-            category.categories[0].percentage += category.categories[indexPath].percentage
-            category.categories.remove(at: indexPath)
+            self.categories[0].percentage += self.categories[indexPath].percentage
+            self.categories.remove(at: indexPath)
+            self.saveCategories()
             self.tableCategory.reloadData()
         })
         

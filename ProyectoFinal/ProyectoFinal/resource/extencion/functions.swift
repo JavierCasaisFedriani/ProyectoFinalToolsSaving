@@ -11,6 +11,7 @@ class Function {
     
     //MARK: - Variable
     static var validityName: Bool = true
+    static var categories: [CategoryModel] = []
     
     //MARK: - Functions
     //If it returns true (name does not exist), if it returns false (the name exists)
